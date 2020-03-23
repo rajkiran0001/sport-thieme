@@ -16,6 +16,7 @@ const axiosGitHubGraphQL = axios.create({
     Authorization: `bearer ${accessToken}`,
   },
 });
+// query to fetch data
 const GET_ISSUES_OF_REPOSITORY = `
   query ($organization: String!, $repository: String!) {
     organization(login: $organization) {
@@ -72,15 +73,15 @@ const GET_ISSUES_OF_REPOSITORY = `
     }
   }
 `;
-
+//axios post request
 const getIssuesOfRepository = path => {
   const [organization, repository] = path.split('/');
-
   return axiosGitHubGraphQL.post('', {
     query: GET_ISSUES_OF_REPOSITORY,
     variables: { organization, repository },
   });
 };
+// function call to set state
 const resolveIssuesQuery = queryResult => () => ({
   organization: queryResult.data.data.organization,
   errors: queryResult.data.errors,
@@ -102,6 +103,7 @@ class App extends Component {
 
     event.preventDefault();
   };
+  //username/repo onSubmit function call
   onFetchFromGitHub = path => {
     getIssuesOfRepository(path).then(queryResult =>
       this.setState(resolveIssuesQuery(queryResult)),
@@ -110,13 +112,14 @@ class App extends Component {
   render() {
     const { path, organization, errors } = this.state;
     return (
-      <div css={{color:"#19194d"}}>
+      <div css={{ color: "#19194d" }}>
+        {/* check for accessToken and data */}
         {accessToken, organization ?
           <div>
-            <Button css={{float: "right", width:'10%'}}onClick={() => {
+            <Button css={{ float: "right", width: '10%' }} onClick={() => {
               localStorage.clear();
               window.location.reload();
-            }}>Logout</Button>
+            }}>Clear token & Logout</Button>
             <h1>{TITLE}</h1>
             <form onSubmit={this.onSubmit}>
               <label htmlFor="url">
@@ -130,7 +133,7 @@ class App extends Component {
                 style={{ width: '300px' }}
               />
               <span>  </span>
-              <Button css={{width:'10%'}} type="submit">Search</Button>
+              <Button css={{ width: '10%' }} type="submit">Search</Button>
             </form>
             <hr />
             <Organization organization={organization} errors={errors} />

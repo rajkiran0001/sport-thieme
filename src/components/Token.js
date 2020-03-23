@@ -39,10 +39,10 @@ const Token = () => {
 					onChange={e => {
 						setToken(e.target.value);
 					}}
-					placeholder="Paste here"
-					css={{width: '100%'}}
+					placeholder="Paste your token"
+					css={{ width: '100%' }}
 				/>
-				<Button css={{width: '108%'}}>SUBMIT</Button>
+				<Button css={{ width: '108%' }}>SUBMIT</Button>
 			</form>
 		</section>
 	);
