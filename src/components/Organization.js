@@ -5,7 +5,8 @@ class Organization extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      comments: []
+      comments: [],
+      search: ''
     }
   }
   clickHandler(open) {
@@ -19,13 +20,24 @@ class Organization extends Component {
       comments: array
     })
   }
+  updateSearch(event) {
+    this.setState({ search: event.target.value.substr(0, 20) });
+  }
   render() {
-    const elements = this.state.comments;
-    const items = []
-    console.log(items)
-    for (const [index, value] of elements.entries()) {
-      items.push(<li key={index}>{value}</li>)
-    }
+    let property = this.props.organization.repository
+    const commentsArray = this.state.comments;
+    let filteredValues = commentsArray.filter(
+      (result) => {
+          return result.indexOf(this.state.search) !== -1;
+        }
+    );
+    // const elements = this.state.comments
+    const commentsResult = filteredValues.map(element => (
+      <li>
+        {element}
+      </li>
+    ))
+
     if (this.props.errors) {
       return (
         <p>
@@ -34,17 +46,17 @@ class Organization extends Component {
         </p>
       );
     }
-    const pullRequests = this.props.organization.repository.pullRequests.edges.map(pull => (
+    const pullRequests = property.pullRequests.edges.map(pull => (
       <li key={pull.node.id}>
         {pull.node.title}
       </li>
     ))
-    const openIssue = this.props.organization.repository.openIssue.edges.map(open => (
+    const openIssues = property.openIssue.edges.map(open => (
       <li key={open.node.id}>
         <a onClick={this.clickHandler.bind(this, open)}>{open.node.title} </a>
       </li>
     ))
-    const closedIssues = this.props.organization.repository.closedIssue.edges.map(issue => (
+    const closedIssues = property.closedIssue.edges.map(issue => (
       <li key={issue.node.id}>
         <a onClick={this.clickHandler.bind(this, issue)}>{issue.node.title}</a>
       </li>
@@ -60,7 +72,7 @@ class Organization extends Component {
           {pullRequests}
         </TabPanel>
         <TabPanel>
-          {openIssue}
+          {openIssues}
         </TabPanel>
         <TabPanel>
           {closedIssues}
@@ -69,13 +81,14 @@ class Organization extends Component {
     );
     return (
       <div>
+        <input type="text" value={this.state.search} onChange={this.updateSearch.bind(this)} />
         <p>
           <strong> Your Organization:</strong>{this.props.organization.name}
         </p>
         <p>
           <strong>In Repository:</strong>{this.props.organization.repository.name}
         </p>
-        {items}
+        {commentsResult}
         {/* <li>{this.state.comments}</li> */}
         <ul>
           {repositoryTab}
