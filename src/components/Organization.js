@@ -12,7 +12,7 @@ class Organization extends Component {
     console.log(open)
     var array = []
     open.node.comments.edges.map(comment => {
-      array = comment.node.body
+      array.push(comment.node.body)
     })
     console.log(array)
     this.setState({
@@ -20,6 +20,12 @@ class Organization extends Component {
     })
   }
   render() {
+    const elements = this.state.comments;
+    const items = []
+    console.log(items)
+    for (const [index, value] of elements.entries()) {
+      items.push(<li key={index}>{value}</li>)
+    }
     if (this.props.errors) {
       return (
         <p>
@@ -69,7 +75,8 @@ class Organization extends Component {
         <p>
           <strong>In Repository:</strong>{this.props.organization.repository.name}
         </p>
-        {this.state.comments}
+        {items}
+        {/* <li>{this.state.comments}</li> */}
         <ul>
           {repositoryTab}
         </ul>
