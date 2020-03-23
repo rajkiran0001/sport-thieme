@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import 'styled-components/macro';
+import Button from './Button'
+import Input from './Input'
+
 
 const Token = () => {
 	const [token, setToken] = useState('');
@@ -8,12 +11,7 @@ const Token = () => {
 			css={{
 				width: '100%',
 				maxWidth: 420,
-				margin: '0 auto',
-				display: 'flex',
-				alignItems: 'center',
-				justifyContent: 'center',
-				fontFamily: 'Calibri',
-				padding: '0 16px',
+				margin: 'auto',
 			}}
 		>
 			<form
@@ -34,7 +32,7 @@ const Token = () => {
 				>
 					Enter your Token
 				</h1>
-				<input
+				<Input
 					type="password"
 					name="token"
 					value={token}
@@ -42,28 +40,9 @@ const Token = () => {
 						setToken(e.target.value);
 					}}
 					placeholder="Paste here"
-					css={{
-						marginBottom: 16,
-						borderRadius: 4,
-						fontSize: 18,
-						fontFamily: 'Calibri',
-						padding: '8px 16px',
-						border: '1px solid #424242',
-						boxShadow: 'none',
-						width: '100%',
-					}}
+					css={{width: '100%'}}
 				/>
-				<button css={{
-						width: '108%',
-						borderRadius: 4,
-						fontSize: 18,
-						fontFamily: 'Calibri',
-						padding: '8px 16px',
-						border: '1px solid #424242',
-						boxShadow: 'none',
-						background:"#19194d",
-						color: "#fff"
-				}}>SUBMIT</button>
+				<Button css={{width: '108%'}}>SUBMIT</Button>
 			</form>
 		</section>
 	);

@@ -4,6 +4,9 @@ import 'styled-components/macro';
 import 'react-tabs/style/react-tabs.css';
 import Token from './components/Token';
 import Organization from './components/Organization';
+import Button from './components/Button'
+import Input from './components/Input'
+
 const TITLE = 'Sport-Thieme Application';
 // get the authentication token from local storage if it exists
 const accessToken = localStorage.getItem('token');
@@ -31,6 +34,7 @@ const GET_ISSUES_OF_REPOSITORY = `
                   node {
                     id
                     body
+                    updatedAt
                   }
                 }
               }
@@ -47,6 +51,7 @@ const GET_ISSUES_OF_REPOSITORY = `
                   node {
                     id
                     body
+                    updatedAt
                   }
                 }
               }
@@ -107,24 +112,25 @@ class App extends Component {
     return (
       <div css={{color:"#19194d"}}>
         {accessToken, organization ?
-          <div css={{background:"#9999ff"}}>
-            <h1>{TITLE}</h1>
-            <button onClick={() => {
+          <div>
+            <Button css={{float: "right", width:'10%'}}onClick={() => {
               localStorage.clear();
               window.location.reload();
-            }}>Logout</button>
+            }}>Logout</Button>
+            <h1>{TITLE}</h1>
             <form onSubmit={this.onSubmit}>
               <label htmlFor="url">
-                Enter your user name/repo for https://github.com/
+                Enter your  <b>username/repo</b> for https://github.com/
                 </label>
-              <input
+              <Input
                 id="url"
                 type="text"
                 value={path}
                 onChange={this.onChange}
                 style={{ width: '300px' }}
               />
-              <button type="submit">Search</button>
+              <span>  </span>
+              <Button css={{width:'10%'}} type="submit">Search</Button>
             </form>
             <hr />
             <Organization organization={organization} errors={errors} />

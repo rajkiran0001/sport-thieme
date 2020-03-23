@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import Input from './Input'
 
 class Organization extends Component {
   constructor(props) {
@@ -28,10 +29,9 @@ class Organization extends Component {
     const commentsArray = this.state.comments;
     let filteredValues = commentsArray.filter(
       (result) => {
-          return result.indexOf(this.state.search) !== -1;
+          return result.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
         }
     );
-    // const elements = this.state.comments
     const commentsResult = filteredValues.map(element => (
       <li>
         {element}
@@ -81,15 +81,8 @@ class Organization extends Component {
     );
     return (
       <div>
-        <input type="text" value={this.state.search} onChange={this.updateSearch.bind(this)} />
-        <p>
-          <strong> Your Organization:</strong>{this.props.organization.name}
-        </p>
-        <p>
-          <strong>In Repository:</strong>{this.props.organization.repository.name}
-        </p>
+        Click the issue to view the comments  <Input type="text" value={this.state.search} onChange={this.updateSearch.bind(this)} placeholder="search your comments"></Input>
         {commentsResult}
-        {/* <li>{this.state.comments}</li> */}
         <ul>
           {repositoryTab}
         </ul>
