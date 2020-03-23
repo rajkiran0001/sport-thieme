@@ -1,5 +1,5 @@
 
-a single page React app communicating with GraphQL API v4 of GitHub
+A single page React app communicating with GraphQL API v4 of GitHub
 
 Features
 * Displaying the following information regarding a chosen repo (selected via a text input field with user name/repo name. eg. nuwave/lighthouse ) in a tab view
@@ -16,7 +16,7 @@ Features
 - The end user has a possibility to input their outh token and a target repo
 
 Installation
-* git clone 
+* clone or download the project
 * cd sport-thieme
 * npm install
 * Get your own token from github
