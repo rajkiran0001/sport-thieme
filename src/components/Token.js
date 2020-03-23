@@ -5,6 +5,7 @@ import Input from './Input'
 
 
 const Token = () => {
+	//react hooks
 	const [token, setToken] = useState('');
 	return (
 		<section
